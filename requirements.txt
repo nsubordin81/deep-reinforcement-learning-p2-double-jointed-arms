@@ -1,0 +1,7 @@
+# for original ddpg code
+gym==0.18.0
+pyglet==1.5.16
+pytorch==1.7.1
+numpy==1.18.5
+matplotlib==3.4.2
+ipykernal==5.3.4
