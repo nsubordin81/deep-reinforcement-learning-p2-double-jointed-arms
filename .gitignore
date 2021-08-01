@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Unity ML Agents Environment
+Reacher_Windows_x86_64/**
