@@ -13,5 +13,6 @@ pandas
 scipy
 ipykernel
 toolz==0.11.1
+torch
 unityagents==0.4.0
 -e .
