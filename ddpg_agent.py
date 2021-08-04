@@ -9,13 +9,13 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 
-BUFFER_SIZE = int(1e5)  # replay buffer size
+BUFFER_SIZE = int(1e6)  # replay buffer size
 BATCH_SIZE = 128  # minibatch size
 GAMMA = 0.99  # discount factor
 TAU = 1e-3  # for soft update of target parameters
 LR_ACTOR = 1e-4  # learning rate of the actor
-LR_CRITIC = 1e-3  # learning rate of the critic
-WEIGHT_DECAY = 0  # L2 weight decay
+LR_CRITIC = 3e-4  # learning rate of the critic
+WEIGHT_DECAY = 0.0001  # L2 weight decay
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -69,11 +69,23 @@ class Agent:
         state = torch.from_numpy(state).float().to(device)
         self.actor_local.eval()
         with torch.no_grad():
-            action = self.actor_local(state).cpu().data.numpy()
+            # import ipdb
+
+            # ipdb.set_trace()
+            pre_numpy_action = self.actor_local(state)
+            action = pre_numpy_action.cpu().data.numpy()
         self.actor_local.train()
         if add_noise:
-            action += self.noise.sample()
-        return np.clip(action, -1, 1)
+            noise_sample = self.noise.sample()
+            with open("actions_log", "a") as file:
+                file.write(f"\nstate: {state}")
+                file.write(f"\npre-numpy action: {pre_numpy_action}")
+                file.write(f"\naction: {action}")
+                file.write(f"\nnoise: {noise_sample}")
+            action += noise_sample
+            self.noise.decay_noise()
+        clipped_actions = np.clip(action, -1, 1)
+        return clipped_actions
 
     def reset(self):
         self.noise.reset()
@@ -104,7 +116,6 @@ class Agent:
         # Minimize the loss
         self.critic_optimizer.zero_grad()
         critic_loss.backward()
-        torch.nn.utils.clip_grad_norm(self.critic_local.parameters(), 1)
         self.critic_optimizer.step()
 
         # ---------------------------- update actor ---------------------------- #
@@ -147,6 +158,7 @@ class OUNoise:
         self.theta = theta
         self.sigma = sigma
         self.seed = random.seed(seed)
+        self.decay = 1
         self.reset()
 
     def reset(self):
@@ -160,7 +172,10 @@ class OUNoise:
             [random.random() for i in range(len(x))]
         )
         self.state = x + dx
-        return self.state
+        return self.state * self.decay
+
+    def decay_noise(self):
+        self.decay = max(self.decay * 0.999, 1e-2)
 
 
 class ReplayBuffer:
