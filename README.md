@@ -4,7 +4,7 @@ Exploration of policy gradient and actor critic methods with a specific task fro
 # Checklist
 
 - [ ] Code for training the agent is complete with good docs
-- [ ] Pytorch and Python 3 were used
+- [x] Pytorch and Python 3 were used
 - [ ] There are saved model weights for the successful agent in the repo
 - [x] This file exists
 - [ ] This file describes the project environment details, such as state and action spaces and when the environment is solved
@@ -30,6 +30,8 @@ Environment Considered Solved When: The reacher task is solved when the hand of 
 ### Dependencies
 
 This task was trained using a python environment with python 3.6
+
+First step is to clone this repository down to your machine, and from there:
 
 1. create and activate the python environment:
     * *Linux* or *Mac*:
@@ -67,4 +69,16 @@ to the reacher executable should then be: `Reacher_Windows_x86_64/Reacher.exe`
 
 ## Running the Agent
 
+The code to train and run the agent are in DDPG.ipynb jupyter notebook. If you've installed the conda environment above and created a kernel for it, you should be able to start a notebook instance from your terminal running the command `jupyter notebook ./DDPG.ipynb` then, 
 
+### Running the Agent: 
+
+1. run first 2 cells, labeled 'import the necessary packages' and 'instantiate the environment and agent'
+2. run the final cell, labeled 'Watch a smart agent!'
+
+### Retraining the Agent: 
+
+1. run first 2 cells, labeled 'import the necessary packages' and 'instantiate the environment and agent'
+2. run the cell labeled 'Train the Agent with DDPG'
+
+note - if you want to train the agent and then run it, in between you will need to restart the kernel just because of an issue with the unity environment, I've had issues closing it and then instantiating it again within the same kernel

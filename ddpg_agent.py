@@ -16,6 +16,7 @@ TAU = 1e-3  # for soft update of target parameters
 LR_ACTOR = 1e-4  # learning rate of the actor
 LR_CRITIC = 3e-4  # learning rate of the critic
 WEIGHT_DECAY = 0.0001  # L2 weight decay
+NOISE_DECAY = 0.9995
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -77,11 +78,11 @@ class Agent:
         self.actor_local.train()
         if add_noise:
             noise_sample = self.noise.sample()
-            with open("actions_log", "a") as file:
-                file.write(f"\nstate: {state}")
-                file.write(f"\npre-numpy action: {pre_numpy_action}")
-                file.write(f"\naction: {action}")
-                file.write(f"\nnoise: {noise_sample}")
+            # with open("actions_log", "a") as file:
+            #     file.write(f"\nstate: {state}")
+            #     file.write(f"\npre-numpy action: {pre_numpy_action}")
+            #     file.write(f"\naction: {action}")
+            #     file.write(f"\nnoise: {noise_sample}")
             action += noise_sample
             self.noise.decay_noise()
         clipped_actions = np.clip(action, -1, 1)
@@ -175,7 +176,7 @@ class OUNoise:
         return self.state * self.decay
 
     def decay_noise(self):
-        self.decay = max(self.decay * 0.999, 1e-2)
+        self.decay = max(self.decay * NOISE_DECAY, 1e-2)
 
 
 class ReplayBuffer:

@@ -38,8 +38,8 @@ class Actor(nn.Module):
         """Build an actor (policy) network that maps states -> actions."""
         x = F.relu(self.fc1(state))
         action_value = torch.tanh(self.fc2(x))
-        with open("actor_output", "a") as file:
-            file.write(f"action value: {action_value}")
+        # with open("actor_output", "a") as file:
+        #     file.write(f"action value: {action_value}")
         return action_value
 
 

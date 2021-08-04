@@ -130,3 +130,8 @@ dmypy.json
 
 # Unity ML Agents Environment
 Reacher_Windows_x86_64/**
+
+# files for debugging and learning
+actions_log
+actor_output
+grok12.ipynb
