@@ -40,7 +40,7 @@ OUnoise:
 theta=0.15
 sigma=0.2
 INITIAL_NOISE = 1.15
-START_DECAY = 300
+START_DECAY = 250
 NOISE_DECAY = 0.99999
 
 In many ways these hyperparameter values match with the original DDPG paper. 
@@ -57,9 +57,9 @@ So instead I opted to amplify it a bit, to 1.15 times its value, and then I put 
 Especially before realizing my primary issue with learning was that my initial network architecture was too complicated and that my episode length was arbitrarily short, I tried assisting 
 convergence by introducing noise decay over time, much like an epsilon greedy approaches has epsilon fall off exponentially towards .01. 
 
-However, this seemed to hurt exploration because it was happening too soon and too fast, so I delayed the beginning of decay until the replay buffer could be stocked with experience with the full OUNoise, and I ultimately increased the noise output of the OU class to 1.15 times strength. Since I still hadn't achieved the goal average reward of 30 because my timesteps were capped at 300, I kept adjusting noise, including starting with a factor of OUNoise a little big greater than the DDPG paper included and having it remain that high for a 500 episodes before decaying very slowly. This could be dangerous for learning as too much noise pushes the policy of the actor towards the boundaries of its action space and also makes it harder for policy updates to get reward if they are actually moving in the right direction. However, once the problem was reframed to a longer episode length, meeting the goal was possible even with extra noise and the environment was mostly solved before decay had even started. 
+However, this seemed to hurt exploration because it was happening too soon and too fast, so I delayed the beginning of decay until the replay buffer could be stocked with experience with the full OUNoise, and I ultimately increased the noise output of the OU class to 1.15 times strength. Since I still hadn't achieved the goal average reward of 30 because my timesteps were capped at 300, I kept adjusting noise, including starting with a factor of OUNoise a little big greater than the DDPG paper included and having it remain that high for a 500 episodes before decaying very slowly. This could be dangerous for learning as too much noise pushes the policy of the actor towards the boundaries of its action space and also makes it harder for policy updates to get reward if they are actually moving in the right direction. However, once the problem was reframed to a longer episode length, meeting the goal was possible in far less than the 2000 episodes I'd set and while starting noise higher and delaying decay, or perhaps decaying it to begin with, was likely not necessary to solve the environment.
 
-Much of my fiddling with noise was trial and error with some knowledge of constraints, so not very scientific and also very custom to my prior knowledge of this environment's dynamics, so I'd probalby try to avoid this for attempts to get a less brittle implementation of DDPG in the future.
+Much of my fiddling with noise was trial and error with some knowledge of constraints, so not very scientific and also very customized by my prior knowledge of this environment's dynamics, so I'd probalby try to avoid this for attempts to get a more general implementation of DDPG in the future.
 
 
 ### Model Architecture
