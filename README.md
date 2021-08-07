@@ -3,17 +3,17 @@ Exploration of policy gradient and actor critic methods with a specific task fro
 
 # Checklist
 
-- [ ] Code for training the agent is complete with good docs
+- [x] Code for training the agent is complete with good docs
 - [x] Pytorch and Python 3 were used
 - [ ] There are saved model weights for the successful agent in the repo
-- [x] This file exists
-- [ ] This file describes the project environment details, such as state and action spaces and when the environment is solved
-- [ ] This file has instructions for getting the necessary dependencies and downloading files needed to train and use the agent
-- [ ] This file has a description for how to run the agent
-- [ ] I've got a Report.md outlining the implementation, including the learning algorithm used, the hyperparameters chosen, and the model architectures for ANNs
+- [x] This README file exists
+- [x] This file describes the project environment details, such as state and action spaces and when the environment is solved
+- [x] This file has instructions for getting the necessary dependencies and downloading files needed to train and use the agent
+- [x] This file has a description for how to run the agent
+- [x] I've got a Report.md outlining the implementation, including the learning algorithm used, the hyperparameters chosen, and the model architectures for ANNs
 - [ ] There is a plot of the rewards in the Report.md file showing either successfully meeting version 1 or 2 of the task
 - [ ] The Report.md file has the number of episodes required to solve the environment as well
-- [ ] The Report.md has some concrete suggestions for how I might improve on the implementation. 
+- [x] The Report.md has some concrete suggestions for how I might improve on the implementation. 
 
 ## Project Environment Details
 
@@ -81,4 +81,4 @@ The code to train and run the agent are in DDPG.ipynb jupyter notebook. If you'v
 1. run first 2 cells, labeled 'import the necessary packages' and 'instantiate the environment and agent'
 2. run the cell labeled 'Train the Agent with DDPG'
 
-note - if you want to train the agent and then run it, in between you will need to restart the kernel just because of an issue with the unity environment, I've had issues closing it and then instantiating it again within the same kernel
+note - if you want to train the agent and then run it, in between these two steps you will need to restart the kernel just because of an issue with the unity environment, I've had issues closing it and then instantiating it again within the same kernel, so restarting the kernel resets any lingering dependency unity has created by launching the environment.
