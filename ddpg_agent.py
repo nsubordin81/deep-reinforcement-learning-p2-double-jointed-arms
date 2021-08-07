@@ -9,14 +9,17 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 
-BUFFER_SIZE = int(1e6)  # replay buffer size
+BUFFER_SIZE = int(5e6)  # replay buffer size
 BATCH_SIZE = 128  # minibatch size
 GAMMA = 0.99  # discount factor
 TAU = 1e-3  # for soft update of target parameters
 LR_ACTOR = 1e-4  # learning rate of the actor
-LR_CRITIC = 3e-4  # learning rate of the critic
-WEIGHT_DECAY = 0.0001  # L2 weight decay
-NOISE_DECAY = 0.9995
+LR_CRITIC = 1e-4  # learning rate of the critic
+WEIGHT_DECAY = 0
+INITIAL_NOISE = 1.15
+NOISE_DECAY = 0.99999
+START_DECAY = 300
+LEARN_EVERY = 10
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -65,7 +68,7 @@ class Agent:
             experiences = self.memory.sample()
             self.learn(experiences, GAMMA)
 
-    def act(self, state, add_noise=True):
+    def act(self, state, add_noise=True, decay_noise=False):
         """Returns actions for given state as per current policy."""
         state = torch.from_numpy(state).float().to(device)
         self.actor_local.eval()
@@ -84,7 +87,9 @@ class Agent:
             #     file.write(f"\naction: {action}")
             #     file.write(f"\nnoise: {noise_sample}")
             action += noise_sample
-            self.noise.decay_noise()
+            # not decaying noise anymore in case the agent is getting stuck
+            if decay_noise:
+                self.noise.decay_noise()
         clipped_actions = np.clip(action, -1, 1)
         return clipped_actions
 
@@ -160,7 +165,7 @@ class OUNoise:
         self.sigma = sigma
         self.size = size
         self.seed = random.seed(seed)
-        self.decay = 1
+        self.decay = INITIAL_NOISE
         self.reset()
 
     def reset(self):
