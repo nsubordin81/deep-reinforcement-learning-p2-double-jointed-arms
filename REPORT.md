@@ -2,7 +2,7 @@
 
 ## Algorithm
 
-For this task I attempted to solve Reacher environment version ()
+For this task I attempted to solve Reacher environment version 1
 
 For this task I used a version of the DDPG algorithm, which had its basis in the Udacity DDPG reference 
 implementation used to solve the Bipedal Walker task and which I augmented based on reading the DDPG original paper
@@ -25,23 +25,23 @@ that picks the actions, but then for improvement they are both leveraging tempor
 methods from the DDPG paper used in this approach were the soft update of tau for slowly moving the weights of the target network towards the local one, target networks as 
 mentioned and the experience replay buffer as mentioned. 
 
-### Hyperparameters
+## Hyperparameters
 
 For my implementation I chose the following hyperparameters:
-BUFFER_SIZE = int(1e6)  # replay buffer size
-BATCH_SIZE = 128  # minibatch size
-GAMMA = 0.99  # discount factor
-TAU = 1e-3  # for soft update of target parameters
-LR_ACTOR = 1e-5  # learning rate of the actor
-LR_CRITIC = 1e-3  # learning rate of the critic
-WEIGHT_DECAY = 0
+BUFFER_SIZE = int(1e6)  # replay buffer size  
+BATCH_SIZE = 128  # minibatch size  
+GAMMA = 0.99  # discount factor  
+TAU = 1e-3  # for soft update of target parameters  
+LR_ACTOR = 1e-5  # learning rate of the actor  
+LR_CRITIC = 1e-3  # learning rate of the critic  
+WEIGHT_DECAY = 0  
 
 OUnoise: 
-theta=0.15
-sigma=0.2
-INITIAL_NOISE = 1.15
-START_DECAY = 250
-NOISE_DECAY = 0.99999
+theta=0.15  
+sigma=0.2  
+INITIAL_NOISE = 1.15  
+START_DECAY = 250  
+NOISE_DECAY = 0.9995  
 
 In many ways these hyperparameter values match with the original DDPG paper. 
 
@@ -62,24 +62,31 @@ However, this seemed to hurt exploration because it was happening too soon and t
 Much of my fiddling with noise was trial and error with some knowledge of constraints, so not very scientific and also very customized by my prior knowledge of this environment's dynamics, so I'd probalby try to avoid this for attempts to get a more general implementation of DDPG in the future.
 
 
-### Model Architecture
+## Model Architecture
 
 I have a target and local network for both actor and critic, and the architectures are as follows: 
 
-#### actor 
-input = 33
-hidden1 = 256, activation ReLU, fan-in Xavier Initialization
-hidden2 = 128, activation ReLU, fan-in Xavier Initialization
-output = 4, activation tanh, (-.003, .003) uniform random Initialization
+### actor 
+input = 33  
+hidden1 = 256, activation ReLU, fan-in Xavier Initialization  
+hidden2 = 128, activation ReLU, fan-in Xavier Initialization  
+output = 4, activation tanh, (-.003, .003) uniform random Initialization  
 
-#### critic
-input = 33
-hidden1 = 256 + 4, activation ReLU, fan-in Xavier Initialization
-hidden2 = 128, activation ReLU, fan-in Xavier Initialization
-output = 1, (-.003, .003) uniform random initialization
+### critic
+input = 33  
+hidden1 = 256 + 4, activation ReLU, fan-in Xavier Initialization  
+hidden2 = 128, activation ReLU, fan-in Xavier Initialization  
+output = 1, (-.003, .003) uniform random initialization  
 
 
 ## Results
+
+The episode was solved successfully by the agent by reaching a an average per episode reward of 30+ over 100 episodes, occurring at
+episode 359 
+
+![Epsiode Log For Solved Environment](Episode_Log_Reacher_solved.png?raw=true)
+
+![Plot Of Rewards for Solved Training Run](plot_reacher_solved.png?raw=true)
 
 ## Ideas for Further Research
 

@@ -54,7 +54,7 @@ environment used is not from the unity mlagents page and instead is only availab
     - [Linux](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Linux.zip)
 
 extract the executable and associated dll file from the archive appropriate to your platform, and then copy it into the root of this cloned repository. The relative path from the root of your cloned version of this repo 
-to the reacher executable should then be: `Reacher_Windows_x86_64/Reacher.exe`
+to the reacher executable should then be: `Reacher_Windows_x86_64/Reacher.exe` for the Windows example and something similar for OSX and Linux
 
 3. install the dependencies from the requirements.txt
     ```
