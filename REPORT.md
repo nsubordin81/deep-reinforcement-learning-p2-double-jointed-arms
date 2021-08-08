@@ -2,7 +2,7 @@
 
 ## Algorithm
 
-For this task I attempted to solve Reacher environment version 1
+For this task I attempted to solve Reacher environment version 1, to get a single agent to average 30+ reward for 100 episodes
 
 For this task I used a version of the DDPG algorithm, which had its basis in the Udacity DDPG reference 
 implementation used to solve the Bipedal Walker task and which I augmented based on reading the DDPG original paper

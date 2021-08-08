@@ -5,14 +5,14 @@ Exploration of policy gradient and actor critic methods with a specific task fro
 
 - [x] Code for training the agent is complete with good docs
 - [x] Pytorch and Python 3 were used
-- [ ] There are saved model weights for the successful agent in the repo
+- [x] There are saved model weights for the successful agent in the repo
 - [x] This README file exists
 - [x] This file describes the project environment details, such as state and action spaces and when the environment is solved
 - [x] This file has instructions for getting the necessary dependencies and downloading files needed to train and use the agent
 - [x] This file has a description for how to run the agent
 - [x] I've got a Report.md outlining the implementation, including the learning algorithm used, the hyperparameters chosen, and the model architectures for ANNs
-- [ ] There is a plot of the rewards in the Report.md file showing either successfully meeting version 1 or 2 of the task
-- [ ] The Report.md file has the number of episodes required to solve the environment as well
+- [x] There is a plot of the rewards in the Report.md file showing either successfully meeting version 1 or 2 of the task
+- [x] The Report.md file has the number of episodes required to solve the environment as well
 - [x] The Report.md has some concrete suggestions for how I might improve on the implementation. 
 
 ## Project Environment Details
@@ -23,7 +23,7 @@ State Space: For this training we will use a lower level observation space (i.e.
 
 Action Space: The action space for the Reacher task is made up of a vector with four floats in the range [-1, 1]. These correspond to the torque you could apply to the two mechanical joints. 
 
-Environment Considered Solved When: The reacher task is solved when the hand of the double jointed arm has remained in the goal location for an average of +30 time steps for 100 consecutive episodes.
+Environment Considered Solved When: The reacher task (I chose version 1 of the environment) is solved when the hand of the double jointed arm has remained in the goal location for an average of +30 time steps for 100 consecutive episodes.
 
 ## Project Setup, Downloading the Necessary Dependencies
 
